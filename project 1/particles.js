@@ -48,6 +48,8 @@ class Particle {
         }
         stroke(200, this.lifespan);
         strokeWeight(2);
+        noStroke();
+
         
         ellipse(this.position.x, this.position.y, this.size, this.size);
     };
@@ -69,6 +71,10 @@ class ParticleSystem {
 
     updatePos(position){
         this.origin = position.copy();
+    }
+
+    isDone(){
+        return this.particles.length > 0;
     }
 
 

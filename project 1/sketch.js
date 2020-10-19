@@ -1,14 +1,16 @@
 let fireworks = [];
 function setup() {
-    createCanvas(1400, 500);
-    
+    createCanvas(1400, 700);
+    background(13,0,66,26);
 }
 
 function draw() {
-    background(255);
+    background(13,0,66,26);
 
     fireworks.forEach(firework => {
-        firework.show();
+        if(!firework.done){
+            firework.show();
+        }
     });
     // else {
     //     fill(255);

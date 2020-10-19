@@ -16,20 +16,6 @@ class Firework {
         this.color = color(random(0,255),random(0,255),random(0,255));
     }
 
-    // flock(boids) {
-    //     let alignment = this.align(boids);
-    //     let cohesion = this.cohesion(boids);
-    //     let separation = this.separation(boids);
-    
-    //     alignment.mult(alignSlider.value());
-    //     cohesion.mult(cohesionSlider.value());
-    //     separation.mult(separationSlider.value());
-    
-    //     this.acceleration.add(alignment);
-    //     this.acceleration.add(cohesion);
-    //     this.acceleration.add(separation);
-    //   }
-
     stop(self){
         // console.log("stop called");
         self.velocity = createVector(0,0);
