@@ -3,7 +3,7 @@ class Firework {
         this.position = position;
         this.acceleration = createVector();
         this.target = target;
-        this.maxSpeed = 3;
+        this.maxSpeed = 2.5;
         this.velocity = p5.Vector.sub(target,position);
         this.velocity.limit(this.maxSpeed);
         this.gravity = createVector(0,.01);
@@ -17,15 +17,18 @@ class Firework {
     }
 
     stop(self){
-        // console.log("stop called");
+        // Set velocity to 0, stopping the firework
         self.velocity = createVector(0,0);
         self.exploded = true;
     }
     
       update() {
+          //Distance to target
         let dist2targ = dist(this.position.x,this.position.y,this.target.x,this.target.y);
         // console.log("this.exploded",this.exploded);
+        //Move particle system so it follows firework
         this.particleSystem.updatePos(this.position);
+        // Stop firework if it is close enough to target
         if(abs(dist2targ) < 20){
             this.exploded = true;
         }
@@ -33,22 +36,26 @@ class Firework {
             // console.log("velocity:",this.velocity);
             // console.log("position:", this.position);
             // console.log("acceleration:", this.acceleration);
+            // Move firework
             this.position.add(this.velocity);
-            this.velocity.add(this.acceleration);
+            //Apply gravity. No need for separate acceleration, it gets an instantaneous velocity at the start and only
+            //gravity should affect it going forward. Neglecting air resistance. 
             this.velocity.add(this.gravity);
+            //Limit the speed
             this.velocity.limit(this.maxSpeed);
-            this.acceleration.mult(0);
+            // Add a trail particle every three frames, to prevent overcrowing
             if(frameCount%3==0){
                 this.particleSystem.addParticle(random(4,10),"trail");
             }
         }
         else {
             // console.log("part should be running");
+            //Create particle system if it didn't have one before
             if(this.particleSystem === null){
                 this.particleSystem = new ParticleSystem(this.position);
             }
-            if(this.partsMade < 40){
-                console.log(this.isRandom, this.color);
+            //Stop making particles after 50 have been made
+            if(this.partsMade < 50){
                 this.particleSystem.addParticle(random(1,15),"explode",this.isRandom ? color(random(0,255),random(0,255),random(0,255)) : this.color);
                 this.partsMade++;
             }

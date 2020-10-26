@@ -13,6 +13,7 @@ let system;
 
 class Particle {
     constructor(position, size, system, color){
+        //Explosion particle different from trail.
         if(system === "explode"){
             this.acceleration = createVector(random(-.05,.05), random(-.05,.05),);
             this.velocity = createVector(random(-1, 1), random(-1, 0));
@@ -34,12 +35,14 @@ class Particle {
     };
 
     update() {
+        //Update position and velocity
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
-        this.lifespan -= 2;
+        this.lifespan -= 1.5;
     };
 
     display() {
+        //If assigned color, use color, else use 127 by default.
         if(this.color){
             fill(this.color, this.lifespan);
         }
@@ -65,19 +68,22 @@ class ParticleSystem {
         this.particles = [];
     } 
 
+    //Adds particle
     addParticle(size,system,color) {
         this.particles.push(new Particle(this.origin,size, system, color));
     };
 
+    //Updates position so it can follow firework
     updatePos(position){
         this.origin = position.copy();
     }
 
+    // Returns booling showing if the particle system is done
     isDone(){
         return this.particles.length > 0;
     }
 
-
+    //Run particle
     run() {
         for (let i = this.particles.length-1; i >= 0; i--) {
             let p = this.particles[i];
