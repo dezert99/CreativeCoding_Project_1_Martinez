@@ -15,7 +15,9 @@ class Particle {
     constructor(position, size, system, color){
         //Explosion particle different from trail.
         if(system === "explode"){
-            this.acceleration = createVector(random(-.05,.05), random(-.05,.05),);
+            const accX = random(-.05,.05);
+            const accY = random(-.05,.05)
+            this.acceleration = createVector(accX, accY,);
             this.velocity = createVector(random(-1, 1), random(-1, 0));
         }
         else {
@@ -39,15 +41,19 @@ class Particle {
         this.velocity.add(this.acceleration);
         this.position.add(this.velocity);
         this.lifespan -= 1.5;
+        if(this?.color) {
+            this.color.setAlpha(this.lifespan)
+
+        }
     };
 
     display() {
         //If assigned color, use color, else use 127 by default.
         if(this.color){
-            fill(this.color, this.lifespan);
+            fill(this.color, [this.lifespan]);
         }
         else{
-            fill(127, this.lifespan);
+            fill(127, [this.lifespan]);
         }
         stroke(200, this.lifespan);
         strokeWeight(2);

@@ -9,10 +9,10 @@ class Firework {
         this.gravity = createVector(0,.01);
         this.exploded = false;
         setInterval(() => {this.stop(this)},5000);
-        this.particleSystem = new ParticleSystem(position);;
+        this.particleSystem = new ParticleSystem(position);
         this.partsMade = 0;
 
-        this.isRandom = random(1,1000) <100;
+        this.isRandom = random(1,1000) < 100;
         this.color = color(random(0,255),random(0,255),random(0,255));
     }
 
